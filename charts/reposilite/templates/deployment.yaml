@@ -39,11 +39,15 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+# reposilite will not work with config on a ro fs
+{{- if .Values.reposilite.config_as_secret }}
+          command: ["/bin/sh", "-c"]
+          args: ["cp -vf /tmp/reposilite.cdn /app/data/reposilite.cdn && java $JAVA_OPTS -jar reposilite.jar -wd=/app/data $REPOSILITE_OPTS"]
+ {{- end }}
           volumeMounts:
 {{- if .Values.reposilite.config_as_secret }}
           - name: reposilite-config
-            mountPath: /app/data/reposilite.cdn
-            # it seems the java in reposilite doesn't like read-only fs
+            mountPath: /tmp/reposilite.cdn
             readOnly: false
             subPath: reposilite.cdn
 {{- end }}

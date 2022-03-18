@@ -57,24 +57,24 @@ download-tarball:: ## downlaods the master tarball to pwd
 helm-install:: ## installs using helm from chart in repo
 		@helm install \
 			-f helm-values.yaml \
-			--namespace default \
+			--namespace $(KUBE_NAMESPACE) \
 				reposilite charts/reposilite
 
 helm-upgrade:: ## upgrades deployed helm release
 		@helm upgrade \
 			-f helm-values.yaml \
-			--namespace default \
+			--namespace $(KUBE_NAMESPACE) \
 				reposilite charts/reposilite
 
 helm-uninstall:: ## deletes and purges deployed helm release
 		@helm uninstall \
-			--namespace default \
+			--namespace $(KUBE_NAMESPACE) \
 				reposilite
 
 helm-render:: ## prints out the rendered chart
 		@helm install \
 			-f helm-values.yaml \
-			--namespace default \
+			--namespace $(KUBE_NAMESPACE) \
 			--dry-run \
 			--debug \
 				reposilite charts/reposilite
@@ -82,7 +82,7 @@ helm-render:: ## prints out the rendered chart
 helm-validate:: ## runs a lint on the helm chart
 		@helm lint \
 			-f helm-values.yaml \
-			--namespace default \
+			--namespace $(KUBE_NAMESPACE) \
 				charts/reposilite
 
 # a help target including self-documenting targets (see the awk statement)
