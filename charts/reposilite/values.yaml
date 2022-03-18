@@ -37,6 +37,7 @@ securityContext: {}
   # runAsUser: 1000
 
 reposilite:
+  config_as_secret: true
   config: |
     # ~~~~~~~~~~~~~~~~~~~~~~ #
     #       Reposilite       #
@@ -108,6 +109,9 @@ reposilite:
     description: Public Maven repository hosted through the Reposilite
     # Accent color used by frontend
     accentColor: #2fd4aa
+
+probes:
+  disabled: false
 
 service:
   type: ClusterIP
