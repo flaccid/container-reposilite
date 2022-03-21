@@ -38,6 +38,7 @@ securityContext: {}
 
 reposilite:
   config_as_secret: true
+  render_secret: true
   config: |
     # ~~~~~~~~~~~~~~~~~~~~~~ #
     #       Reposilite       #
