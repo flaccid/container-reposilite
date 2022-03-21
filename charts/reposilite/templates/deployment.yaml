@@ -42,8 +42,10 @@ spec:
 # reposilite will not work with config on a ro fs
 {{- if .Values.reposilite.config_as_secret }}
           command: ["/bin/sh", "-c"]
-          args: ["cp -vf /tmp/reposilite.cdn /app/data/reposilite.cdn && java $JAVA_OPTS -jar reposilite.jar -wd=/app/data $REPOSILITE_OPTS"]
+          args: ["cp -vf /tmp/reposilite.cdn /app/data/reposilite.cdn && java $JAVA_OPTS -jar reposilite.jar -wd=/app/data $REPOSILITE_OPTS -lc=/app/data/reposilite.cdn --token reposilite:{{ randAlphaNum 16}}"]
  {{- end }}
+          tty: true
+          stdin: true
           volumeMounts:
 {{- if .Values.reposilite.config_as_secret }}
           - name: reposilite-config
